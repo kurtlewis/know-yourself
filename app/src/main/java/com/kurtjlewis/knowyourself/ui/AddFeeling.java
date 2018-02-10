@@ -51,24 +51,15 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         yvalues.add(new Entry(12.5f, 4));
         yvalues.add(new Entry(12.5f, 5));
         yvalues.add(new Entry(12.5f, 6));
-        yvalues.add(new Entry(12.5f, 7));
         PieDataSet dataSet = new PieDataSet(yvalues, "Emotion");
 
         ArrayList<String> xVals = new ArrayList<String>();
 
-        /*xVals.add("Angry");
-        xVals.add("Stressed");
-        xVals.add("Happy");
-        xVals.add("Anxious");
-        xVals.add("Sad");
-        xVals.add("Excited");
-        xVals.add("Depressed");
-        xVals.add("Neutral");*/
-
         Emotion emotions[] = Emotion.values();
-        System.out.println(emotions);
+        int[] colors = new int[emotions.length];
         for(int i=0; i<emotions.length; i++){
             xVals.add(emotions[i].getLocalizedString(this));
+            colors[i] = emotions[i].getColorRepresentation();
         }
 
         PieData data = new PieData(xVals, dataSet);
@@ -77,7 +68,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         pieChart.setData(data);
 
         pieChart.setDrawHoleEnabled(false);
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataSet.setColors(colors);
         data.setValueTextSize(13f);
 
 
