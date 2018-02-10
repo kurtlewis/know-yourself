@@ -17,7 +17,7 @@ import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
  * @date 2018.02.10
  */
 
-@Database(entities = {FeelingEntity.class}, version=0)
+@Database(entities = {FeelingEntity.class}, version=1)
 @TypeConverters({CalendarConverter.class, EmotionConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     // Daos
@@ -35,8 +35,9 @@ public abstract class AppDatabase extends RoomDatabase {
     public static AppDatabase getInstance(final Context context) {
         if (sInstance == null) {
             // Need to initialize instance of database
+            // TODO: Do not allow queries on the main thread except for during initial development
             sInstance = Room.databaseBuilder(context,
-                    AppDatabase.class, DATABASE_NAME).build();
+                    AppDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
 
         }
         return sInstance;
