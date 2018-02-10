@@ -27,7 +27,7 @@ public class GridAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return DataRepository.getInstance(mContext).getFeelingCount();
+        return 98;
     }
 
     @Override
@@ -44,6 +44,7 @@ public class GridAdapter extends BaseAdapter {
 
         ImageView view = new ImageView(mContext);
         int width = view.getWidth();
+        //DataRepository.getInstance(mContext);
         Drawable drawable = new ColorDrawable(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
         drawable = new ScaleDrawable(drawable, 0, 70, 70).getDrawable();
         drawable.setBounds(0, 0, 50, 50);
