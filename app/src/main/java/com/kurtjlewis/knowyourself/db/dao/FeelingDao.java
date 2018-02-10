@@ -6,5 +6,24 @@ package com.kurtjlewis.knowyourself.db.dao;
  * @date 2018.02.10
  */
 
-public class FeelingDao {
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.Query;
+
+import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
+import com.kurtjlewis.knowyourself.model.Emotion;
+
+import java.util.Calendar;
+import java.util.List;
+
+public interface FeelingDao {
+    @Query("SELECT * FROM feelings where timestamp > :timestamp")
+    List<FeelingEntity> loadFeelingsAfterTimestamp(Calendar timestamp);
+
+    @Query("SELECT * FROM feelings where emotion = :emotion")
+    List<FeelingEntity> loadFeelingsOfEmotion(Emotion emotion);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertFeeling(FeelingEntity feeling);
 }
