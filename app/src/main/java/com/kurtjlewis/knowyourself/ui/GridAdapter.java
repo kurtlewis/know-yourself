@@ -11,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.kurtjlewis.knowyourself.DataRepository;
+
 /**
  * Created by Zach on 2/10/2018.
  */
@@ -23,19 +25,18 @@ public class GridAdapter extends BaseAdapter {
         mContext = context;
     }
 
+    @Override
     public int getCount() {
-        return 49;
+        return DataRepository.getInstance(mContext).getFeelingCount();
     }
 
     @Override
     public Object getItem(int position) {
-
         return null;
     }
 
     @Override
     public long getItemId(int position) {
-
         return 0;
     }
 
