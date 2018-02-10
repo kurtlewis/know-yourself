@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Know Yourself</string>
     <string name="action_settings">Settings</string>
+
+
+    <!-- Feeling names -->
+    <string name="HAPPY">Happy</string>
+    <string name="ANGRY">Angry</string>
+    <string name="SAD">Sad</string>
+    <string name="ANXIOUS">Anxious</string>
+    <string name="STRESSED">Stressed</string>
+    <string name="EXCITED">Excited</string>
+    <string name="DEPRESSED">Depressed</string>
 </resources>
