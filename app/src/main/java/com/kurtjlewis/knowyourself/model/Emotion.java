@@ -1,4 +1,4 @@
-package com.kurtjlewis.knowyourself.persistence.model;
+package com.kurtjlewis.knowyourself.model;
 
 import android.content.Context;
 import android.content.res.Resources;
