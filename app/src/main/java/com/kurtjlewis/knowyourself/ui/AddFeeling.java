@@ -22,6 +22,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
 import com.kurtjlewis.knowyourself.R;
+import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
+import com.kurtjlewis.knowyourself.DataRepository.java;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -32,6 +34,10 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_feeling);
+
+        DataRepository repo = DataRepository.getInstance(getApplicationContext());
+        FeelingEntity entity = new FeelingEntity(my data... my data... my data...);
+        repo.insertFeelingEntity(entity);
 
         PieChart pieChart = (PieChart) findViewById(R.id.piechart);
         pieChart.setUsePercentValues(true);
@@ -108,13 +114,11 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
 
             public void onStopTrackingTouch(SeekBar arg0) {
                 // TODO Auto-generated method stub
-                System.out.println(".....111.......");
 
             }
 
             public void onStartTrackingTouch(SeekBar arg0) {
                 // TODO Auto-generated method stub
-                System.out.println(".....222.......");
             }
 
             public void onProgressChanged(SeekBar seekbar, int progress, boolean fromUser) {
