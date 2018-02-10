@@ -21,9 +21,10 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
+import com.kurtjlewis.knowyourself.DataRepository;
 import com.kurtjlewis.knowyourself.R;
 import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
-import com.kurtjlewis.knowyourself.DataRepository.java;
+import com.kurtjlewis.knowyourself.model.Emotion;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -35,9 +36,9 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_feeling);
 
-        DataRepository repo = DataRepository.getInstance(getApplicationContext());
-        FeelingEntity entity = new FeelingEntity(my data... my data... my data...);
-        repo.insertFeelingEntity(entity);
+        DataRepository repo = DataRepository.getInstance(this);
+        //FeelingEntity entity = new FeelingEntity(my data... my data... my data...);
+        //repo.insertFeelingEntity(entity);
 
         PieChart pieChart = (PieChart) findViewById(R.id.piechart);
         pieChart.setUsePercentValues(true);
@@ -55,14 +56,20 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
 
         ArrayList<String> xVals = new ArrayList<String>();
 
-        xVals.add("Angry");
+        /*xVals.add("Angry");
         xVals.add("Stressed");
         xVals.add("Happy");
         xVals.add("Anxious");
         xVals.add("Sad");
         xVals.add("Excited");
         xVals.add("Depressed");
-        xVals.add("Neutral");
+        xVals.add("Neutral");*/
+
+        Emotion emotions[] = Emotion.values();
+        System.out.println(emotions);
+        for(int i=0; i<emotions.length; i++){
+            xVals.add(emotions[i].getLocalizedString(this));
+        }
 
         PieData data = new PieData(xVals, dataSet);
 
@@ -86,7 +93,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         if (e == null)
             return;
         final Integer index = e.getXIndex();
-
+        FeelingEntity feeling = new FeelingEntity();
         final SeekBar seekBar = new SeekBar(this);
         seekBar.setMinimumWidth(500);
         seekBar.setMax(100);
