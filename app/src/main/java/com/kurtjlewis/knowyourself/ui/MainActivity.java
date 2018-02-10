@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         GridView gridView = findViewById(R.id.historyGrid);
         gridView.setAdapter(new GridAdapter(this));
-        
+
     }
 
     @Override

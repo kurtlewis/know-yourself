@@ -26,6 +26,9 @@ public interface FeelingDao {
     @Query("SELECT * FROM feelings where emotion = :emotion")
     List<FeelingEntity> loadFeelingsOfEmotion(Emotion emotion);
 
+    @Query("SELECT count(*) FROM feelings")
+    int getFeelingCount();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertFeeling(FeelingEntity feeling);
 

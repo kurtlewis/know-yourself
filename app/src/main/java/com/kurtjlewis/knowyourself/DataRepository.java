@@ -47,4 +47,8 @@ public class DataRepository {
     public void deleteFeelingEntity(FeelingEntity entity) {
         database.feelingDao().deleteFeeling(entity);
     }
+
+    public int getFeelingCount() {
+        return database.feelingDao().getFeelingCount();
+    }
 }
