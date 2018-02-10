@@ -17,7 +17,7 @@ import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
  * @date 2018.02.10
  */
 
-@Database(entities = {FeelingEntity.class}, version=0)
+@Database(entities = {FeelingEntity.class}, version=1)
 @TypeConverters({CalendarConverter.class, EmotionConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     // Daos
