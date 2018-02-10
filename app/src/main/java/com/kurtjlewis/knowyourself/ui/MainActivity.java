@@ -1,4 +1,4 @@
-package com.kurtjlewis.knowyourself;
+package com.kurtjlewis.knowyourself.ui;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
+
+import com.kurtjlewis.knowyourself.R;
 
 public class MainActivity extends AppCompatActivity {
 
