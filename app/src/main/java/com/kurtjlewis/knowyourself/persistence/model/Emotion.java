@@ -1,7 +1,11 @@
 package com.kurtjlewis.knowyourself.persistence.model;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
+
+
 
 /**
  * Created by kurt on 2/10/18.
@@ -15,6 +19,8 @@ public enum Emotion {
 
     /**
      * Returns the color representation of an emotiondefined in this enum
+     * @author Kurt Lewis
+     * @date 2018.02.10
      * @return gets int representing a color for given emotion
      */
     public @ColorInt int getColorRepresentation() {
@@ -38,6 +44,18 @@ public enum Emotion {
                 throw new RuntimeException("Unhandled enum value.");
         }
         return color;
+    }
+
+    /**
+     * Returns the string representation
+     * @author Kurt Lewis
+     * @date 2018.02.10
+     * @param context - context of view displaying the enum value
+     * @return returns localized string representing the enum value
+     */
+    public String getLocalizedString(Context context) {
+        Resources res = context.getResources();
+        return res.getString(res.getIdentifier(this.name(), "string", context.getPackageName()));
     }
 
 
