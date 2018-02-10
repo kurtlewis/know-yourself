@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 /**
  * Created by Zach on 2/10/2018.
@@ -25,7 +24,7 @@ public class GridAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return 28;
+        return 49;
     }
 
     @Override
@@ -45,9 +44,9 @@ public class GridAdapter extends BaseAdapter {
         ImageView view = new ImageView(mContext);
         int width = view.getWidth();
         Drawable drawable = new ColorDrawable(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
-        drawable = new ScaleDrawable(drawable, 0, 50, 50).getDrawable();
+        drawable = new ScaleDrawable(drawable, 0, 70, 70).getDrawable();
         drawable.setBounds(0, 0, 50, 50);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(50, 50);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(70, 70);
         view.setLayoutParams(layoutParams);
         view.setImageDrawable(drawable);
 

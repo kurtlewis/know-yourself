@@ -8,22 +8,32 @@
     tools:context="com.kurtjlewis.knowyourself.ui.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="History"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <GridView
-        android:id="@+id/historyGrid"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:columnWidth="60dp"
-        android:gravity="center"
-        android:horizontalSpacing="5dp"
-        android:numColumns="7"
-        android:padding="10dp"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/feelings"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        <GridView
+            android:id="@+id/historyGrid"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="60dp"
+            android:gravity="center"
+            android:horizontalSpacing="5dp"
+            android:numColumns="7"
+            android:padding="10dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="5dp"
+            android:layout_below="@id/textView"/>
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
