@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,13 +11,72 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 
+import com.kurtjlewis.knowyourself.DataRepository;
 import com.kurtjlewis.knowyourself.R;
+import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
+
+    private List<FeelingEntity> feelingEntities;
+
+    private Map<Calendar, List<FeelingEntity>> feelingEntitiesByDate = new TreeMap<>(new Comparator<Calendar>(){
+        @Override
+        public int compare(Calendar d1, Calendar d2) {
+            d1.set(Calendar.HOUR_OF_DAY, 0);
+            d1.set(Calendar.MINUTE, 0);
+            d1.set(Calendar.SECOND, 0);
+            d1.set(Calendar.MILLISECOND, 0);
+            d2.set(Calendar.HOUR_OF_DAY, 0);
+            d2.set(Calendar.MINUTE, 0);
+            d2.set(Calendar.SECOND, 0);
+            d2.set(Calendar.MILLISECOND, 0);
+
+            if (d1.getTimeInMillis() < d2.getTimeInMillis()) {
+                return -1;
+            } else if (d1.getTimeInMillis() > d2.getTimeInMillis()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    });
+
+    public Map<Calendar, List<FeelingEntity>> getFeelingEntitiesByDate() {
+        return feelingEntitiesByDate;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+        today.add(Calendar.DAY_OF_YEAR, -98);
+
+        feelingEntities = DataRepository
+                .getInstance(this)
+                .loadFeelingEntitiesAfterTimestamp(today);
+
+        for (FeelingEntity f : feelingEntities) {
+            List<FeelingEntity> l = feelingEntitiesByDate.get(f.getTimestamp());
+            if (l == null) {
+                l = new ArrayList<>();
+                feelingEntitiesByDate.put(f.getTimestamp(), l);
+            }
+            l.add(f);
+        }
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
