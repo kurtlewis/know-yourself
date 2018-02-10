@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\know-yourself\KnowYourself.iml" filepath="D:\know-yourself\KnowYourself.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\know-yourself\app\app.iml" filepath="D:\know-yourself\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/know-yourself.iml" filepath="$PROJECT_DIR$/know-yourself.iml" />
     </modules>
   </component>
 </project>

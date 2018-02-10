@@ -1,4 +1,4 @@
-package com.kurtjlewis.knowyourself;
+package com.kurtjlewis.knowyourself.ui;
 
 import android.content.Context;
 import android.graphics.Color;
