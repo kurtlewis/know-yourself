@@ -17,6 +17,7 @@ import com.kurtjlewis.knowyourself.model.Emotion;
 import java.util.Calendar;
 import java.util.List;
 
+@Dao
 public interface FeelingDao {
     @Query("SELECT * FROM feelings where timestamp > :timestamp")
     List<FeelingEntity> loadFeelingsAfterTimestamp(Calendar timestamp);
