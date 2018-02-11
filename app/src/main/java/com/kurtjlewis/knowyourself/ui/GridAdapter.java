@@ -70,7 +70,7 @@ public class GridAdapter extends BaseAdapter {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    DayViewActivity.sel_position = position;
+                    DayViewActivity.SetPosition(position);
                     Context context = view.getContext();
                     Intent intent  = new Intent(context, DayViewActivity.class);
                     context.startActivity(intent);
