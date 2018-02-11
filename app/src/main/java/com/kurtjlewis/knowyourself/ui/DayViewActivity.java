@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ScrollView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +30,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-public class DayViewActivity extends Activity {
+public class DayViewActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -74,13 +75,15 @@ public class DayViewActivity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_day_view, menu);
+        //getMenuInflater().inflate(R.menu.menu_day_view, menu);
         return true;
     }
 
