@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,28 +26,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static List<FeelingEntity> feelingEntities;
 
     private static Map<Calendar, List<FeelingEntity>> feelingEntitiesByDate = new TreeMap<>(new Comparator<Calendar>(){
         @Override
         public int compare(Calendar d1, Calendar d2) {
-            d1.set(Calendar.HOUR_OF_DAY, 0);
-            d1.set(Calendar.MINUTE, 0);
-            d1.set(Calendar.SECOND, 0);
-            d1.set(Calendar.MILLISECOND, 0);
-            d2.set(Calendar.HOUR_OF_DAY, 0);
-            d2.set(Calendar.MINUTE, 0);
-            d2.set(Calendar.SECOND, 0);
-            d2.set(Calendar.MILLISECOND, 0);
-
-            if (d1.getTimeInMillis() < d2.getTimeInMillis()) {
+            if (d1.get(Calendar.YEAR) < d2.get(Calendar.YEAR)) {
                 return -1;
-            } else if (d1.getTimeInMillis() > d2.getTimeInMillis()) {
+            } else if (d1.get(Calendar.YEAR) > d2.get(Calendar.YEAR)) {
                 return 1;
             } else {
-                return 0;
+                if (d1.get(Calendar.DAY_OF_YEAR) < d2.get(Calendar.DAY_OF_YEAR)) {
+                    return -1;
+                } else if (d1.get(Calendar.DAY_OF_YEAR) > d2.get(Calendar.DAY_OF_YEAR)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
     });
@@ -62,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
             DataRepository.getInstance(this).insertFeelingEntity(f);
         }*/
 
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        today.add(Calendar.DAY_OF_YEAR, -98);
+        Calendar todayWithOffset = Calendar.getInstance();
+        todayWithOffset.set(Calendar.HOUR_OF_DAY, 0);
+        todayWithOffset.set(Calendar.MINUTE, 0);
+        todayWithOffset.set(Calendar.SECOND, 0);
+        todayWithOffset.set(Calendar.MILLISECOND, 0);
+        todayWithOffset.add(Calendar.DAY_OF_YEAR, -98);
 
         feelingEntities = DataRepository
                 .getInstance(this)
-                .loadFeelingEntitiesAfterTimestamp(today);
+                .loadFeelingEntitiesAfterTimestamp(todayWithOffset);
 
         for (FeelingEntity f : feelingEntities) {
             List<FeelingEntity> l = feelingEntitiesByDate.get(f.getTimestamp());
@@ -85,6 +85,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Prepare Navigation Menu
+        NavigationView mNavigationView = (NavigationView) findViewById(R.id.main_navigation);
+        if (mNavigationView != null) {
+            mNavigationView.setNavigationItemSelectedListener(this);
+        }
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_hamburger);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +128,35 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        // handle home button to open navigation drawer
+        if (id == android.R.id.home) {
+            DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.navigation_menu_notifications) {
+            // Spawn navigation configuration activity
+            Context context = getApplicationContext();
+            Intent intent  = new Intent(this.getBaseContext(), NotificationActivity.class);
+            context.startActivity(intent);
+        }
+
+        if (id == R.id.action_settings) {
+            // Spawn settings menu
+        }
+        
+        // close drawer
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawers();
+        return true;
     }
 }

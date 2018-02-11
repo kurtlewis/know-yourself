@@ -2,23 +2,29 @@ package com.kurtjlewis.knowyourself.ui;
 
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.widget.ScrollView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kurtjlewis.knowyourself.R;
+import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 public class DayViewActivity extends Activity {
 
@@ -37,8 +43,19 @@ public class DayViewActivity extends Activity {
      */
     private ViewPager mViewPager;
 
+    private static Calendar today;
+
+    public static int sel_position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
         // Create the adapter that will return a fragment for each of the three
@@ -48,8 +65,6 @@ public class DayViewActivity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
     }
 
 
@@ -103,10 +118,121 @@ public class DayViewActivity extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_day_view, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
+            Calendar todayWithOffset = (Calendar) today.clone();
+            todayWithOffset.add(Calendar.DAY_OF_YEAR, -getArguments().getInt(ARG_SECTION_NUMBER));
+
+            ScrollView scrollView = new ScrollView(inflater.getContext());
+            scrollView.setPadding(10, 10, 10, 10);
+
+            LinearLayout masterLayout = new LinearLayout(inflater.getContext());
+            scrollView.addView(masterLayout);
+
+            Integer year = todayWithOffset.get(Calendar.YEAR);
+            Integer month = todayWithOffset.get(Calendar.MONTH) + 1; //unbelievable
+            Integer day = todayWithOffset.get(Calendar.DAY_OF_MONTH);
+
+            String dateString = month + " / " + day + " / " + year;
+            TextView dateStringView = new TextView(inflater.getContext());
+            dateStringView.setText(dateString);
+            dateStringView.setTextSize(25);
+            masterLayout.addView(dateStringView);
+
+            masterLayout.setOrientation(LinearLayout.VERTICAL);
+            TextView bl2 = new TextView(inflater.getContext());
+            bl2.setText("");
+            bl2.setTextSize(25);
+            masterLayout.addView(bl2);
+
+            List<FeelingEntity> feelingEntities = MainActivity.getFeelingEntitiesByDate().get(todayWithOffset);
+            if (feelingEntities == null) {
+                RelativeLayout rl = new RelativeLayout(inflater.getContext());
+                TextView tv = new TextView(inflater.getContext());
+                tv.setText(R.string.no_activity);
+                tv.setTextSize(25);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                tv.setLayoutParams(lp);
+                rl.addView(tv);
+                masterLayout.addView(rl);
+                return scrollView;
+            }
+            for (FeelingEntity f : feelingEntities) {
+                RelativeLayout rl = new RelativeLayout(inflater.getContext());
+                TextView feelingText = new TextView(inflater.getContext());
+                feelingText.setText(f.getEmotion().toString());
+                feelingText.setTextSize(30);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                feelingText.setLayoutParams(lp);
+                feelingText.setBackgroundColor(f.getEmotion().getColorRepresentation());
+                RelativeLayout.LayoutParams tlp = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.MATCH_PARENT
+                );
+                tlp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                tlp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                feelingText.setLayoutParams(tlp);
+                rl.addView(feelingText);
+                masterLayout.addView(rl);
+
+                TextView timeTitle = new TextView(inflater.getContext());
+                timeTitle.setText(R.string.timestamp);
+                timeTitle.setTextSize(25);
+                masterLayout.addView(timeTitle);
+
+                TextView timeText = new TextView(inflater.getContext());
+
+                Integer hour = f.getTimestamp().get(Calendar.HOUR_OF_DAY);
+                Integer minute = f.getTimestamp().get(Calendar.MINUTE);
+                String timeStamp = hour + ":" + minute;
+
+                timeText.setText(timeStamp);
+                timeText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_preset_checked, 0, 0, 0);
+                timeText.setCompoundDrawablePadding(8);
+                timeText.setTextSize(20);
+                masterLayout.addView(timeText);
+
+                TextView intensityTitle = new TextView(inflater.getContext());
+                intensityTitle.setText(R.string.intensity);
+                intensityTitle.setTextSize(25);
+                masterLayout.addView(intensityTitle);
+
+                TextView intensityText = new TextView(inflater.getContext());
+                intensityText.setText(Integer.toString(f.getIntensity()));
+                intensityText.setTextSize(20);
+                intensityText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_preset_checked, 0, 0, 0);
+                intensityText.setCompoundDrawablePadding(8);
+                masterLayout.addView(intensityText);
+
+                TextView descriptionTitle = new TextView(inflater.getContext());
+                descriptionTitle.setText(R.string.notes);
+                descriptionTitle.setTextSize(25);
+                masterLayout.addView(descriptionTitle);
+
+                TextView descriptionText = new TextView(inflater.getContext());
+                descriptionText.setText(f.getNotes());
+                descriptionText.setTextSize(20);
+                descriptionText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_preset_checked, 0, 0, 0);
+                descriptionText.setCompoundDrawablePadding(8);
+                masterLayout.addView(descriptionText);
+
+                TextView blankLine = new TextView(inflater.getContext());
+                blankLine.setText("");
+                blankLine.setTextSize(20);
+                masterLayout.addView(blankLine);
+
+                TextView blankLine2 = new TextView(inflater.getContext());
+                blankLine2.setText("");
+                blankLine2.setTextSize(20);
+                masterLayout.addView(blankLine2);
+            }
+
+            return scrollView;
         }
     }
 
@@ -124,26 +250,21 @@ public class DayViewActivity extends Activity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            sel_position += 1;
+            return PlaceholderFragment.newInstance(sel_position - 1);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 98;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
+            Calendar todayWithOffset = (Calendar) today.clone();
+            todayWithOffset.add(Calendar.DAY_OF_YEAR, -position);
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            return "Hello" /*format1.format(todayWithOffset)*/;
         }
     }
 }
