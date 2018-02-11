@@ -24,6 +24,8 @@ import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DayViewActivity extends Activity {
@@ -158,6 +160,20 @@ public class DayViewActivity extends Activity {
                 masterLayout.addView(rl);
                 return scrollView;
             }
+            Collections.sort(feelingEntities, new Comparator<FeelingEntity>() {
+                @Override
+                public int compare(FeelingEntity feelingEntity, FeelingEntity t1) {
+                    if (feelingEntity.getIntensity() > t1.getIntensity()) {
+                        return -1;
+                    }
+                    else if (feelingEntity.getIntensity() < t1.getIntensity()) {
+                        return 1;
+                    }
+                    else {
+                        return 0;
+                    }
+                }
+            });
             for (FeelingEntity f : feelingEntities) {
                 RelativeLayout rl = new RelativeLayout(inflater.getContext());
                 TextView feelingText = new TextView(inflater.getContext());
