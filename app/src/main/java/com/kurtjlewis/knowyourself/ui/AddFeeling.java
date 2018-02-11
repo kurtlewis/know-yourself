@@ -2,6 +2,9 @@ package com.kurtjlewis.knowyourself.ui;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -28,8 +31,10 @@ import com.kurtjlewis.knowyourself.model.Emotion;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class AddFeeling extends AppCompatActivity implements OnChartValueSelectedListener {
+    final DataRepository repo = DataRepository.getInstance(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +42,13 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         setContentView(R.layout.activity_add_feeling);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        DataRepository repo = DataRepository.getInstance(this);
-        //FeelingEntity entity = new FeelingEntity(my data... my data... my data...);
-        //repo.insertFeelingEntity(entity);
+
 
         PieChart pieChart = (PieChart) findViewById(R.id.piechart);
         pieChart.setUsePercentValues(true);
 
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
-        
+
         PieDataSet dataSet = new PieDataSet(yvalues, "Emotion");
 
         ArrayList<String> xVals = new ArrayList<String>();
@@ -71,6 +74,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         pieChart.setDescription("");
         pieChart.getLegend().setEnabled(false);
         pieChart.setOnChartValueSelectedListener(this);
+        pieChart.setRotationEnabled(false);
 
     }
 
@@ -101,9 +105,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         seekBar.setBackgroundColor(Color.WHITE);
 
         final TextView mDistance = new TextView(this);
-        popup.create();
-        //popup.setView(mDistance);
-        popup.show();
+
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             public void onStopTrackingTouch(SeekBar arg0) {
@@ -116,7 +118,6 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
             }
 
             public void onProgressChanged(SeekBar seekbar, int progress, boolean fromUser) {
-                System.out.println(Integer.toString(progress));
                 mDistance.setText(Integer.toString(progress));
                 //Get the thumb bound and get its left value
                 int x = seekBar.getThumb().getBounds().left;
@@ -124,6 +125,20 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
                 mDistance.setX(x);
             }
         });
+
+        popup.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FeelingEntity entity = new FeelingEntity(Emotion.values()[index], Calendar.getInstance(), seekBar.getProgress(), "");
+                //repo.insertFeelingEntity(entity);
+                Context context = AddFeeling.this;
+                Intent intent  = new Intent(context, AddDetails.class);
+                context.startActivity(intent);
+            }
+        });
+        popup.create();
+        //popup.setView(mDistance);
+        popup.show();
     }
 
     @Override

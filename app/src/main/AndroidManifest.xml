@@ -30,7 +30,9 @@
         </activity>
         <activity
             android:name=".ui.DayViewActivity"
-            android:label="@string/title_activity_day_view"></activity>
+            android:label="@string/title_activity_day_view" />
+        <activity android:name=".ui.AddDetails" />
+        <activity android:name=".ui.NotificationActivity"></activity>
     </application>
 
 </manifest>
