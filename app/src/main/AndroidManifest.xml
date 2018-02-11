@@ -30,7 +30,7 @@
         </activity>
         <activity
             android:name=".ui.DayViewActivity"
-            android:label="@string/title_activity_day_view"
+            android:label="Know Yourself"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
