@@ -2,6 +2,7 @@ package com.kurtjlewis.knowyourself.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -41,13 +42,19 @@ public class AddDetails extends AppCompatActivity {
         final Button save = (Button) findViewById(R.id.save);
         final TextView intense = (TextView) findViewById(R.id.Intensity);
 
-        intense.append(" "+Integer.toString(intensity));
+        intense.append(Integer.toString(intensity));
+
+        int feelColor = e.getColorRepresentation();
+        int red = Color.red(feelColor);
+        int green = Color.green(feelColor);
+        int blue = Color.blue(feelColor);
+        int backgroundColor = Color.argb((255-10)/100*intensity, red, green, blue);
 
         feeling.setText(e.getLocalizedString(this));
-        feeling.setBackgroundColor(e.getColorRepresentation());
+        feeling.setBackgroundColor(backgroundColor);
 
         final Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 1);
+
         SimpleDateFormat mmddyyyy = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat hhmm = new SimpleDateFormat("hh:mm a");
 
