@@ -25,7 +25,7 @@ public class DataGenerator {
             feeling.setIntensity(rdm.nextInt(100));
             feeling.setNotes("This is a mocked Feeling Entity");
             Calendar timestamp = Calendar.getInstance();
-            timestamp.setTimeInMillis(timestamp.getTimeInMillis() - rdm.nextInt());
+            timestamp.setTimeInMillis(timestamp.getTimeInMillis() - (rdm.nextInt() & Integer.MAX_VALUE));
             feeling.setTimestamp(timestamp);
             feelings.add(feeling);
         }
