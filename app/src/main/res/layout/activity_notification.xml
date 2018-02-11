@@ -7,7 +7,7 @@
     tools:context="com.kurtjlewis.knowyourself.ui.NotificationActivity">
 
     <Switch
-        android:id="@+id/switch1"
+        android:id="@+id/morningSwitch"
         android:layout_width="0dp"
         android:layout_height="34dp"
         android:layout_marginBottom="16dp"
@@ -15,14 +15,14 @@
         android:layout_marginStart="8dp"
         android:text="@string/morning"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/switch2"
+        app:layout_constraintBottom_toTopOf="@+id/afternoonSwitch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Switch
-        android:id="@+id/switch2"
+        android:id="@+id/afternoonSwitch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -30,14 +30,14 @@
         android:layout_marginStart="8dp"
         android:text="@string/afternoon"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/switch3"
+        app:layout_constraintBottom_toTopOf="@+id/eveningSwitch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+        app:layout_constraintTop_toBottomOf="@+id/morningSwitch" />
 
     <Switch
-        android:id="@+id/switch3"
+        android:id="@+id/eveningSwitch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -45,14 +45,14 @@
         android:layout_marginStart="8dp"
         android:text="@string/evening"
         android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/switch4"
+        app:layout_constraintBottom_toTopOf="@+id/nightSwitch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch2" />
+        app:layout_constraintTop_toBottomOf="@+id/afternoonSwitch" />
 
     <Switch
-        android:id="@+id/switch4"
+        android:id="@+id/nightSwitch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -63,7 +63,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch3" />
+        app:layout_constraintTop_toBottomOf="@+id/eveningSwitch" />
 
     <TextView
         android:id="@+id/textView4"
@@ -75,7 +75,7 @@
         android:text="@string/notification_help"
         android:textAppearance="@style/TextAppearance.AppCompat"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/switch1"
+        app:layout_constraintBottom_toTopOf="@+id/morningSwitch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
