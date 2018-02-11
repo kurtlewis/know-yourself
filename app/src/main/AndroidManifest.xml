@@ -46,7 +46,13 @@
 
         <activity
             android:name=".ui.ResourcesActivity"
-            android:label="@string/title_activity_resources"></activity>
+            android:label="@string/title_activity_resources"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
