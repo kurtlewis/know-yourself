@@ -48,7 +48,7 @@ public class AddDetails extends AppCompatActivity {
         int red = Color.red(feelColor);
         int green = Color.green(feelColor);
         int blue = Color.blue(feelColor);
-        int backgroundColor = Color.argb((255-10)/100*intensity, red, green, blue);
+        int backgroundColor = Color.argb((255-50)/100*intensity, red, green, blue);
 
         feeling.setText(e.getLocalizedString(this));
         feeling.setBackgroundColor(backgroundColor);

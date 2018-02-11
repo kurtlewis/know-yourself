@@ -14,7 +14,7 @@ import android.support.annotation.ColorInt;
  */
 
 public enum Emotion {
-    ANGRY, STRESSED, HAPPY, ANXIOUS, SAD,  EXCITED, DEPRESSED;
+    ANGRY, STRESSED, SAD, HAPPY, ANXIOUS, EXCITED, DEPRESSED;
 
 
     /**
@@ -30,7 +30,7 @@ public enum Emotion {
                 break;
             case ANGRY: color = Color.rgb(216,31,42);
                 break;
-            case SAD: color = Color.rgb(51, 171, 249);
+            case SAD: color = Color.rgb(219, 173, 114);
                 break;
             case ANXIOUS: color = Color.rgb(144,245,0);
                 break;

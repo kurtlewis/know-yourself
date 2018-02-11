@@ -5,6 +5,7 @@ import android.app.Activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.graphics.Color;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -208,7 +209,14 @@ public class DayViewActivity extends AppCompatActivity {
                 lp.addRule(RelativeLayout.CENTER_IN_PARENT);
                 lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 feelingText.setLayoutParams(lp);
-                feelingText.setBackgroundColor(f.getEmotion().getColorRepresentation());
+
+                int feelColor = f.getEmotion().getColorRepresentation();
+                int red = Color.red(feelColor);
+                int green = Color.green(feelColor);
+                int blue = Color.blue(feelColor);
+                int backgroundColor = Color.argb((255-50)/100*f.getIntensity(), red, green, blue);
+
+                feelingText.setBackgroundColor(backgroundColor);
                 RelativeLayout.LayoutParams tlp = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.MATCH_PARENT,
                         RelativeLayout.LayoutParams.MATCH_PARENT

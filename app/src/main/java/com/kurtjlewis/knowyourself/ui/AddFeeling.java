@@ -113,7 +113,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         int red = Color.red(feelColor);
         int green = Color.green(feelColor);
         int blue = Color.blue(feelColor);
-        int startColor = Color.argb(10, red, green, blue);
+        int startColor = Color.argb(50, red, green, blue);
         int endColor = Color.argb(255, red, green, blue);
 
         final TextView mDistance = new TextView(this);

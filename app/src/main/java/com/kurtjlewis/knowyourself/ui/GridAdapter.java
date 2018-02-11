@@ -76,6 +76,11 @@ public class GridAdapter extends BaseAdapter {
                     context.startActivity(intent);
                 }
             });
+            int feelColor = strongest.getEmotion().getColorRepresentation();
+            int red = Color.red(feelColor);
+            int green = Color.green(feelColor);
+            int blue = Color.blue(feelColor);
+            int backgroundColor = Color.argb((255-50)/100*strongest.getIntensity(), red, green, blue);
             drawable = new ColorDrawable(strongest.getEmotion().getColorRepresentation());
         }
 
