@@ -132,13 +132,17 @@ public class DayViewActivity extends Activity {
             return fragment;
         }
 
+        ScrollView scrollView;
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            if (scrollView != null) { return scrollView; }
+
             Calendar todayWithOffset = (Calendar) today.clone();
             todayWithOffset.add(Calendar.DAY_OF_YEAR, -getArguments().getInt(ARG_SECTION_NUMBER));
 
-            ScrollView scrollView = new ScrollView(inflater.getContext());
+            scrollView = new ScrollView(inflater.getContext());
             scrollView.setPadding(10, 10, 10, 10);
 
             LinearLayout masterLayout = new LinearLayout(inflater.getContext());
