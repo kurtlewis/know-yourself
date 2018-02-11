@@ -8,7 +8,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.widget.Toolbar;
+import android.widget.ScrollView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -120,35 +120,82 @@ public class DayViewActivity extends Activity {
                                  Bundle savedInstanceState) {
             Calendar todayWithOffset = (Calendar) today.clone();
             todayWithOffset.add(Calendar.DAY_OF_YEAR, -getArguments().getInt(ARG_SECTION_NUMBER));
+
+            ScrollView scrollView = new ScrollView(inflater.getContext());
+            scrollView.setPadding(10, 10, 10, 10);
+
             LinearLayout masterLayout = new LinearLayout(inflater.getContext());
+            scrollView.addView(masterLayout);
+
+            Integer year = todayWithOffset.get(Calendar.YEAR);
+            Integer month = todayWithOffset.get(Calendar.MONTH) + 1; //unbelievable
+            Integer day = todayWithOffset.get(Calendar.DAY_OF_MONTH);
+
+            String dateString = month + " / " + day + " / " + year;
+            TextView dateStringView = new TextView(inflater.getContext());
+            dateStringView.setText(dateString);
+            dateStringView.setTextSize(25);
+            masterLayout.addView(dateStringView);
 
             masterLayout.setOrientation(LinearLayout.VERTICAL);
-            TextView tv = new TextView(inflater.getContext());
-            tv.setText("Hello");
-            masterLayout.addView(tv);
-
+            TextView bl2 = new TextView(inflater.getContext());
+            bl2.setText("");
+            bl2.setTextSize(25);
+            masterLayout.addView(bl2);
 
             List<FeelingEntity> feelingEntities = MainActivity.getFeelingEntitiesByDate().get(todayWithOffset);
+            if (feelingEntities == null) {
+                RelativeLayout rl = new RelativeLayout(inflater.getContext());
+                TextView tv = new TextView(inflater.getContext());
+                tv.setText("No activity for this day.");
+                tv.setTextSize(25);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                tv.setLayoutParams(lp);
+                rl.addView(tv);
+                masterLayout.addView(rl);
+                return scrollView;
+            }
             for (FeelingEntity f : feelingEntities) {
                 RelativeLayout rl = new RelativeLayout(inflater.getContext());
                 TextView feelingText = new TextView(inflater.getContext());
                 feelingText.setText(f.getEmotion().toString());
                 feelingText.setTextSize(30);
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
                         RelativeLayout.LayoutParams.WRAP_CONTENT);
                 lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 feelingText.setLayoutParams(lp);
+                feelingText.setBackgroundColor(f.getEmotion().getColorRepresentation());
+                RelativeLayout.LayoutParams tlp = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.MATCH_PARENT
+                );
+                tlp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                tlp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                feelingText.setLayoutParams(tlp);
                 rl.addView(feelingText);
                 masterLayout.addView(rl);
 
-                /*TextView timeTitle = new TextView(inflater.getContext());
+                TextView timeTitle = new TextView(inflater.getContext());
                 timeTitle.setText("Timestamp");
+                timeTitle.setTextSize(25);
                 masterLayout.addView(timeTitle);
 
                 TextView timeText = new TextView(inflater.getContext());
-                timeText.setText(todayWithOffset.toString());
-                masterLayout.addView(timeText);*/
+
+                Integer hour = f.getTimestamp().get(Calendar.HOUR_OF_DAY);
+                Integer minute = f.getTimestamp().get(Calendar.MINUTE);
+                String timeStamp = hour + ":" + minute;
+
+                timeText.setText(timeStamp);
+                timeText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_preset_checked, 0, 0, 0);
+                timeText.setCompoundDrawablePadding(8);
+                timeText.setTextSize(20);
+                masterLayout.addView(timeText);
 
                 TextView intensityTitle = new TextView(inflater.getContext());
                 intensityTitle.setText("Intensity");
@@ -158,8 +205,8 @@ public class DayViewActivity extends Activity {
                 TextView intensityText = new TextView(inflater.getContext());
                 intensityText.setText(new Integer(f.getIntensity()).toString());
                 intensityText.setTextSize(20);
-                intensityText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_alpha, 0, 0, 0);
-                intensityText.setCompoundDrawablePadding(10);
+                intensityText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_preset_checked, 0, 0, 0);
+                intensityText.setCompoundDrawablePadding(8);
                 masterLayout.addView(intensityText);
 
                 TextView descriptionTitle = new TextView(inflater.getContext());
@@ -170,8 +217,8 @@ public class DayViewActivity extends Activity {
                 TextView descriptionText = new TextView(inflater.getContext());
                 descriptionText.setText(f.getNotes());
                 descriptionText.setTextSize(20);
-                descriptionText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_alpha, 0, 0, 0);
-                descriptionText.setCompoundDrawablePadding(10);
+                descriptionText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_preset_checked, 0, 0, 0);
+                descriptionText.setCompoundDrawablePadding(8);
                 masterLayout.addView(descriptionText);
 
                 TextView blankLine = new TextView(inflater.getContext());
@@ -185,7 +232,7 @@ public class DayViewActivity extends Activity {
                 masterLayout.addView(blankLine2);
             }
 
-            return masterLayout;
+            return scrollView;
         }
     }
 

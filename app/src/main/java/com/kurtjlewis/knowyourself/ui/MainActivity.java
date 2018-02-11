@@ -30,21 +30,18 @@ public class MainActivity extends AppCompatActivity {
     private static Map<Calendar, List<FeelingEntity>> feelingEntitiesByDate = new TreeMap<>(new Comparator<Calendar>(){
         @Override
         public int compare(Calendar d1, Calendar d2) {
-            d1.set(Calendar.HOUR_OF_DAY, 0);
-            d1.set(Calendar.MINUTE, 0);
-            d1.set(Calendar.SECOND, 0);
-            d1.set(Calendar.MILLISECOND, 0);
-            d2.set(Calendar.HOUR_OF_DAY, 0);
-            d2.set(Calendar.MINUTE, 0);
-            d2.set(Calendar.SECOND, 0);
-            d2.set(Calendar.MILLISECOND, 0);
-
-            if (d1.getTimeInMillis() < d2.getTimeInMillis()) {
+            if (d1.get(Calendar.YEAR) < d2.get(Calendar.YEAR)) {
                 return -1;
-            } else if (d1.getTimeInMillis() > d2.getTimeInMillis()) {
+            } else if (d1.get(Calendar.YEAR) > d2.get(Calendar.YEAR)) {
                 return 1;
             } else {
-                return 0;
+                if (d1.get(Calendar.DAY_OF_YEAR) < d2.get(Calendar.DAY_OF_YEAR)) {
+                    return -1;
+                } else if (d1.get(Calendar.DAY_OF_YEAR) > d2.get(Calendar.DAY_OF_YEAR)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
             }
         }
     });
@@ -62,16 +59,16 @@ public class MainActivity extends AppCompatActivity {
             DataRepository.getInstance(this).insertFeelingEntity(f);
         }*/
 
-        Calendar today = Calendar.getInstance();
-        today.set(Calendar.HOUR_OF_DAY, 0);
-        today.set(Calendar.MINUTE, 0);
-        today.set(Calendar.SECOND, 0);
-        today.set(Calendar.MILLISECOND, 0);
-        today.add(Calendar.DAY_OF_YEAR, -98);
+        Calendar todayWithOffset = Calendar.getInstance();
+        todayWithOffset.set(Calendar.HOUR_OF_DAY, 0);
+        todayWithOffset.set(Calendar.MINUTE, 0);
+        todayWithOffset.set(Calendar.SECOND, 0);
+        todayWithOffset.set(Calendar.MILLISECOND, 0);
+        todayWithOffset.add(Calendar.DAY_OF_YEAR, -98);
 
         feelingEntities = DataRepository
                 .getInstance(this)
-                .loadFeelingEntitiesAfterTimestamp(today);
+                .loadFeelingEntitiesAfterTimestamp(todayWithOffset);
 
         for (FeelingEntity f : feelingEntities) {
             List<FeelingEntity> l = feelingEntitiesByDate.get(f.getTimestamp());
