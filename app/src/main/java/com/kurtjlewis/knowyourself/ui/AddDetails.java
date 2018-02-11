@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class AddDetails extends AppCompatActivity {
-    final DataRepository repo = DataRepository.getInstance(this);
+    final DataRepository repo = DataRepository.getInstance(MainActivity.mcontext);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class AddDetails extends AppCompatActivity {
         final Button save = (Button) findViewById(R.id.save);
 
         feeling.setText(e.getLocalizedString(this));
-        feeling.setHighlightColor(e.getColorRepresentation());
+        feeling.setBackgroundColor(e.getColorRepresentation());
 
         final Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, 1);
@@ -115,6 +115,7 @@ public class AddDetails extends AppCompatActivity {
             public void onClick(View view) {
                 FeelingEntity entity = new FeelingEntity(e, cal, intensity, notes.getText().toString());
                 repo.insertFeelingEntity(entity);
+                AddDetails.this.finish();
             }
         });
     }

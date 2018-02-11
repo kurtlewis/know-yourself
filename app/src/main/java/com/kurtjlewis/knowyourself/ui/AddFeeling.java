@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddFeeling extends AppCompatActivity implements OnChartValueSelectedListener {
-    final DataRepository repo = DataRepository.getInstance(this);
+    final DataRepository repo = DataRepository.getInstance(MainActivity.mcontext);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

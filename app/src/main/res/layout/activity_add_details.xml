@@ -6,40 +6,25 @@
     android:layout_height="match_parent"
     tools:context="com.kurtjlewis.knowyourself.ui.AddDetails">
 
-    <!--<DatePicker
-        android:id="@+id/DatePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible"/>
-
-    <TimePicker
-        android:id="@+id/TimePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/DatePicker"
-        android:visibility="invisible"/>
--->
     <TextView
         android:id="@+id/Feeling"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="37dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
         android:text="Feeling"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textAlignment="center"/>
 
     <EditText
         android:id="@+id/Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/Feeling"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/Feeling"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="44dp"
         android:clickable="true"
         android:ems="10"
         android:focusable="false"

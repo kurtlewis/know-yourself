@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
+    public static Context mcontext;
     private static List<FeelingEntity> feelingEntities;
 
     private static Map<Calendar, List<FeelingEntity>> feelingEntitiesByDate = new TreeMap<>(new Comparator<Calendar>(){
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mcontext = this;
         /*List<FeelingEntity> genFeelings = DataGenerator.generateFeelingEntityList(40);
         for (FeelingEntity f : genFeelings) {
             DataRepository.getInstance(this).insertFeelingEntity(f);
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         todayWithOffset.add(Calendar.DAY_OF_YEAR, -98);
 
         feelingEntities = DataRepository
-                .getInstance(this)
+                .getInstance(mcontext)
                 .loadFeelingEntitiesAfterTimestamp(todayWithOffset);
 
         for (FeelingEntity f : feelingEntities) {
