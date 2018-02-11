@@ -13,21 +13,21 @@ import android.widget.GridView;
 
 import com.kurtjlewis.knowyourself.DataRepository;
 import com.kurtjlewis.knowyourself.R;
+import com.kurtjlewis.knowyourself.db.DataGenerator;
 import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<FeelingEntity> feelingEntities;
+    private static List<FeelingEntity> feelingEntities;
 
-    private Map<Calendar, List<FeelingEntity>> feelingEntitiesByDate = new TreeMap<>(new Comparator<Calendar>(){
+    private static Map<Calendar, List<FeelingEntity>> feelingEntitiesByDate = new TreeMap<>(new Comparator<Calendar>(){
         @Override
         public int compare(Calendar d1, Calendar d2) {
             d1.set(Calendar.HOUR_OF_DAY, 0);
@@ -49,13 +49,18 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    public Map<Calendar, List<FeelingEntity>> getFeelingEntitiesByDate() {
+    public static Map<Calendar, List<FeelingEntity>> getFeelingEntitiesByDate() {
         return feelingEntitiesByDate;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*List<FeelingEntity> genFeelings = DataGenerator.generateFeelingEntityList(40);
+        for (FeelingEntity f : genFeelings) {
+            DataRepository.getInstance(this).insertFeelingEntity(f);
+        }*/
 
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
