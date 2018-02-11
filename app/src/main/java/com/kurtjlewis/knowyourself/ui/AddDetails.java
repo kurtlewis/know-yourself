@@ -2,6 +2,7 @@ package com.kurtjlewis.knowyourself.ui;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -125,6 +126,9 @@ public class AddDetails extends AppCompatActivity {
             public void onClick(View view) {
                 FeelingEntity entity = new FeelingEntity(e, cal, intensity, notes.getText().toString());
                 repo.insertFeelingEntity(entity);
+
+                Intent i = new Intent(AddDetails.this, MainActivity.class);
+                startActivityForResult(i, 1);
                 AddDetails.this.finish();
             }
         });
