@@ -4,6 +4,13 @@
     <string name="feelings">Your Feelings</string>
     <string name="menu_notification">Notifications</string>
 
+    <!-- Notifications strings -->
+    <string name="morning">Morning</string>
+    <string name="afternoon">Afternoon</string>
+    <string name="evening">Evening</string>
+    <string name="night">Night</string>
+    <string name="notification_help">Set notifications to remind you to input your feelings</string>
+
     <!-- Feeling names -->
     <string name="HAPPY">Happy</string>
     <string name="ANGRY">Angry</string>
