@@ -2,26 +2,29 @@ package com.kurtjlewis.knowyourself.ui;
 
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kurtjlewis.knowyourself.R;
+import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class DayViewActivity extends Activity {
 
@@ -40,7 +43,7 @@ public class DayViewActivity extends Activity {
      */
     private ViewPager mViewPager;
 
-    private Calendar today;
+    private static Calendar today;
 
     public static int sel_position;
 
@@ -62,7 +65,6 @@ public class DayViewActivity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
     }
 
 
@@ -116,10 +118,74 @@ public class DayViewActivity extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_day_view, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
+            Calendar todayWithOffset = (Calendar) today.clone();
+            todayWithOffset.add(Calendar.DAY_OF_YEAR, -getArguments().getInt(ARG_SECTION_NUMBER));
+            LinearLayout masterLayout = new LinearLayout(inflater.getContext());
+
+            masterLayout.setOrientation(LinearLayout.VERTICAL);
+            TextView tv = new TextView(inflater.getContext());
+            tv.setText("Hello");
+            masterLayout.addView(tv);
+
+
+            List<FeelingEntity> feelingEntities = MainActivity.getFeelingEntitiesByDate().get(todayWithOffset);
+            for (FeelingEntity f : feelingEntities) {
+                RelativeLayout rl = new RelativeLayout(inflater.getContext());
+                TextView feelingText = new TextView(inflater.getContext());
+                feelingText.setText(f.getEmotion().toString());
+                feelingText.setTextSize(30);
+                RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.WRAP_CONTENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+                lp.addRule(RelativeLayout.CENTER_IN_PARENT);
+                feelingText.setLayoutParams(lp);
+                rl.addView(feelingText);
+                masterLayout.addView(rl);
+
+                /*TextView timeTitle = new TextView(inflater.getContext());
+                timeTitle.setText("Timestamp");
+                masterLayout.addView(timeTitle);
+
+                TextView timeText = new TextView(inflater.getContext());
+                timeText.setText(todayWithOffset.toString());
+                masterLayout.addView(timeText);*/
+
+                TextView intensityTitle = new TextView(inflater.getContext());
+                intensityTitle.setText("Intensity");
+                intensityTitle.setTextSize(25);
+                masterLayout.addView(intensityTitle);
+
+                TextView intensityText = new TextView(inflater.getContext());
+                intensityText.setText(new Integer(f.getIntensity()).toString());
+                intensityText.setTextSize(20);
+                intensityText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_alpha, 0, 0, 0);
+                intensityText.setCompoundDrawablePadding(10);
+                masterLayout.addView(intensityText);
+
+                TextView descriptionTitle = new TextView(inflater.getContext());
+                descriptionTitle.setText("Notes");
+                descriptionTitle.setTextSize(25);
+                masterLayout.addView(descriptionTitle);
+
+                TextView descriptionText = new TextView(inflater.getContext());
+                descriptionText.setText(f.getNotes());
+                descriptionText.setTextSize(20);
+                descriptionText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_alpha, 0, 0, 0);
+                descriptionText.setCompoundDrawablePadding(10);
+                masterLayout.addView(descriptionText);
+
+                TextView blankLine = new TextView(inflater.getContext());
+                blankLine.setText("");
+                blankLine.setTextSize(20);
+                masterLayout.addView(blankLine);
+
+                TextView blankLine2 = new TextView(inflater.getContext());
+                blankLine2.setText("");
+                blankLine2.setTextSize(20);
+                masterLayout.addView(blankLine2);
+            }
+
+            return masterLayout;
         }
     }
 
@@ -138,7 +204,7 @@ public class DayViewActivity extends Activity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             sel_position += 1;
-            return PlaceholderFragment.newInstance(sel_position);
+            return PlaceholderFragment.newInstance(sel_position - 1);
         }
 
         @Override
@@ -151,7 +217,7 @@ public class DayViewActivity extends Activity {
             Calendar todayWithOffset = (Calendar) today.clone();
             todayWithOffset.add(Calendar.DAY_OF_YEAR, -position);
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            return format1.format(todayWithOffset);
+            return "Hello" /*format1.format(todayWithOffset)*/;
         }
     }
 }

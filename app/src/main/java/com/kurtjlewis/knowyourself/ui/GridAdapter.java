@@ -12,11 +12,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.kurtjlewis.knowyourself.DataRepository;
 import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 /**
