@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -89,10 +91,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Prepare Navigation Menu
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.main_navigation);
-
         if (mNavigationView != null) {
             mNavigationView.setNavigationItemSelectedListener(this);
         }
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu_hamburger);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -128,6 +131,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
 
+        // handle home button to open navigation drawer
+        if (id == android.R.id.home) {
+            DrawerLayout drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -143,7 +153,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_settings) {
             // Spawn settings menu
         }
-
+        
+        // close drawer
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerLayout.closeDrawers();
         return true;
     }
 }
