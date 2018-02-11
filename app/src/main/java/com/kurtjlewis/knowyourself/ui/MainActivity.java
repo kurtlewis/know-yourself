@@ -166,4 +166,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.closeDrawers();
         return true;
     }
+
+    @Override
+    public void onResume()  {
+        super.onResume();
+
+        //GridView gridView = findViewById(R.id.historyGrid);
+        //gridView.invalidate();
+
+    }
 }
