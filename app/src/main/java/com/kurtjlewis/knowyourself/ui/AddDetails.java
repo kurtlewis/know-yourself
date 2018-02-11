@@ -39,6 +39,9 @@ public class AddDetails extends AppCompatActivity {
         final EditText time = (EditText) findViewById(R.id.Time);
         final EditText notes = (EditText) findViewById(R.id.Notes);
         final Button save = (Button) findViewById(R.id.save);
+        final TextView intense = (TextView) findViewById(R.id.Intensity);
+
+        intense.append(" "+Integer.toString(intensity));
 
         feeling.setText(e.getLocalizedString(this));
         feeling.setBackgroundColor(e.getColorRepresentation());
