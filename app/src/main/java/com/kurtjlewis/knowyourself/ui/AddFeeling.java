@@ -29,6 +29,7 @@ import com.kurtjlewis.knowyourself.R;
 import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
 import com.kurtjlewis.knowyourself.model.Emotion;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -129,10 +130,10 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         popup.setPositiveButton("OK", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                FeelingEntity entity = new FeelingEntity(Emotion.values()[index], Calendar.getInstance(), seekBar.getProgress(), "");
-                //repo.insertFeelingEntity(entity);
                 Context context = AddFeeling.this;
                 Intent intent  = new Intent(context, AddDetails.class);
+                intent.putExtra("emotionIndex", index);
+                intent.putExtra("intensity", seekBar.getProgress());
                 context.startActivity(intent);
             }
         });
