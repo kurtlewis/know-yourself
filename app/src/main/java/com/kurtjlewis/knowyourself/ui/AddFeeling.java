@@ -6,8 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.graphics.drawable.shapes.RectShape;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +40,7 @@ import java.util.Calendar;
 
 public class AddFeeling extends AppCompatActivity implements OnChartValueSelectedListener {
     final DataRepository repo = DataRepository.getInstance(MainActivity.mcontext);
+    Emotion emotions[] = Emotion.values();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,6 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
 
         ArrayList<String> xVals = new ArrayList<String>();
 
-        Emotion emotions[] = Emotion.values();
         int[] colors = new int[emotions.length];
         for(int i=0; i<emotions.length; i++){
             yvalues.add(new Entry(100/emotions.length, i));
@@ -105,7 +109,21 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         seekBar.setVisibility(View.VISIBLE);
         seekBar.setBackgroundColor(Color.WHITE);
 
+        int feelColor = emotions[index].getColorRepresentation();
+        int red = Color.red(feelColor);
+        int green = Color.green(feelColor);
+        int blue = Color.blue(feelColor);
+        int startColor = Color.argb(10, red, green, blue);
+        int endColor = Color.argb(255, red, green, blue);
+
         final TextView mDistance = new TextView(this);
+        LinearGradient test = new LinearGradient(0, 0,
+                                    700, 0,
+                                    startColor, endColor, Shader.TileMode.CLAMP);
+        ShapeDrawable shape = new ShapeDrawable(new RectShape());
+        shape.getPaint().setShader(test);
+
+        seekBar.setProgressDrawable( (Drawable)shape );
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
