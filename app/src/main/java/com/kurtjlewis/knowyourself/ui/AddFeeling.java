@@ -2,7 +2,9 @@ package com.kurtjlewis.knowyourself.ui;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -128,7 +130,10 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FeelingEntity entity = new FeelingEntity(Emotion.values()[index], Calendar.getInstance(), seekBar.getProgress(), "");
-                repo.insertFeelingEntity(entity);
+                //repo.insertFeelingEntity(entity);
+                Context context = AddFeeling.this;
+                Intent intent  = new Intent(context, AddDetails.class);
+                context.startActivity(intent);
             }
         });
         popup.create();
