@@ -39,6 +39,7 @@
         </activity>
         <activity android:name=".ui.AddDetails" />
         <activity android:name=".ui.NotificationActivity"></activity>
+        <receiver android:name=".service.NotificationPublisher" android:exported="true"/>
     </application>
 
 </manifest>
