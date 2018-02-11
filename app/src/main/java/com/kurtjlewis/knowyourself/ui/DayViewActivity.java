@@ -74,6 +74,14 @@ public class DayViewActivity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        mViewPager.setCurrentItem(sel_position - 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mViewPager.setCurrentItem(sel_position - 1);
     }
 
 
@@ -269,31 +277,17 @@ public class DayViewActivity extends Activity {
             super(fm);
         }
 
-        public HashMap<Integer, Fragment> usedFragments = new HashMap<>();
-
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if (!usedFragments.containsKey(position)) {
-                usedFragments.put(position, PlaceholderFragment.newInstance(position));
-            }
 
-            if (just_set) {
+            /*if (just_set) {
                 just_set = false;
-                if (usedFragments.containsKey(sel_position)) {
-                    return usedFragments.get(sel_position);
-                }
-                Fragment f = PlaceholderFragment.newInstance(sel_position);
-                usedFragments.put(sel_position, f);
-                return f;
-            }
-            if (usedFragments.containsKey(position + 1)) {
-                return usedFragments.get(position + 1);
-            }
-            Fragment f = PlaceholderFragment.newInstance(position + 1);
-            usedFragments.put(position + 1, f);
-            return f;
+                return PlaceholderFragment.newInstance(sel_position);
+            }*/
+
+            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
