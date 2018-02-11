@@ -153,6 +153,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
                 intent.putExtra("emotionIndex", index);
                 intent.putExtra("intensity", seekBar.getProgress());
                 context.startActivity(intent);
+                AddFeeling.this.finish();
             }
         });
         popup.create();

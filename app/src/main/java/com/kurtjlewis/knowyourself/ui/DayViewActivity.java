@@ -68,6 +68,10 @@ public class DayViewActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
+
+        // Add back button to action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
@@ -76,7 +80,13 @@ public class DayViewActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mViewPager.setCurrentItem(sel_position - 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mViewPager.setCurrentItem(sel_position - 1);
     }
 
 
@@ -277,10 +287,10 @@ public class DayViewActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            if (just_set) {
+            /*if (just_set) {
                 just_set = false;
                 return PlaceholderFragment.newInstance(sel_position);
-            }
+            }*/
 
             return PlaceholderFragment.newInstance(position + 1);
         }
