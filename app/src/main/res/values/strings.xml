@@ -12,4 +12,6 @@
     <string name="STRESSED">Stressed</string>
     <string name="EXCITED">Excited</string>
     <string name="DEPRESSED">Depressed</string>
+    <string name="title_activity_day_view">DayViewActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
