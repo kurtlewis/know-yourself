@@ -5,6 +5,9 @@
         android:id="@+id/navigation_menu_notifications"
         android:title="@string/menu_notification" />
     <item
+        android:id="@+id/navigation_menu_resources"
+        android:title="Resources" />
+    <item
         android:id="@+id/settings"
         android:title="@string/action_settings" />
 </menu>

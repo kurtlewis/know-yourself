@@ -8,6 +8,7 @@ import android.app.FragmentManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ScrollView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +30,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-public class DayViewActivity extends Activity {
+public class DayViewActivity extends AppCompatActivity {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -67,6 +68,10 @@ public class DayViewActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
+
+        // Add back button to action bar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
@@ -88,7 +93,7 @@ public class DayViewActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_day_view, menu);
+        //getMenuInflater().inflate(R.menu.menu_day_view, menu);
         return true;
     }
 

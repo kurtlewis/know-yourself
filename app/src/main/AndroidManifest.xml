@@ -38,8 +38,15 @@
                 android:value=".ui.MainActivity" />
         </activity>
         <activity android:name=".ui.AddDetails" />
-        <activity android:name=".ui.NotificationActivity"></activity>
-        <receiver android:name=".service.NotificationPublisher" android:exported="true"/>
+        <activity android:name=".ui.NotificationActivity" />
+
+        <receiver
+            android:name=".service.NotificationPublisher"
+            android:exported="true" />
+
+        <activity
+            android:name=".ui.ResourcesActivity"
+            android:label="@string/title_activity_resources"></activity>
     </application>
 
 </manifest>
