@@ -173,8 +173,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onResume()  {
         super.onResume();
 
-        //GridView gridView = findViewById(R.id.historyGrid);
-        //gridView.invalidate();
+        GridView gridView = findViewById(R.id.historyGrid);
+        gridView.invalidate();
 
+    }
+
+    @Override
+    public void onRestart()  {
+        super.onRestart();
+
+        GridView gridView = findViewById(R.id.historyGrid);
+        gridView.invalidate();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        GridView gridView = findViewById(R.id.historyGrid);
+        gridView.invalidate();
     }
 }
