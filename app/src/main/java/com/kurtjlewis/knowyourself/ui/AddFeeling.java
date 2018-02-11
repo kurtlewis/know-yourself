@@ -35,6 +35,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_feeling);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         DataRepository repo = DataRepository.getInstance(this);
         //FeelingEntity entity = new FeelingEntity(my data... my data... my data...);
