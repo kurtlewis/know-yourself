@@ -74,6 +74,14 @@ public class DayViewActivity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        mViewPager.setCurrentItem(sel_position - 1);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mViewPager.setCurrentItem(sel_position - 1);
     }
 
 
@@ -274,10 +282,10 @@ public class DayViewActivity extends Activity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            if (just_set) {
+            /*if (just_set) {
                 just_set = false;
                 return PlaceholderFragment.newInstance(sel_position);
-            }
+            }*/
 
             return PlaceholderFragment.newInstance(position + 1);
         }
