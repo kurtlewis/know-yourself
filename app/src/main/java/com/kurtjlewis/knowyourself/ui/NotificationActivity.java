@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,26 @@ public class NotificationActivity extends AppCompatActivity implements CompoundB
         ((Switch)findViewById(R.id.afternoonSwitch)).setOnCheckedChangeListener(this);
         ((Switch)findViewById(R.id.eveningSwitch)).setOnCheckedChangeListener(this);
         ((Switch)findViewById(R.id.nightSwitch)).setOnCheckedChangeListener(this);
+
+        // Load switch states
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        ((Switch)findViewById(R.id.morningSwitch)).setChecked(sharedPref.getBoolean(getString(R.string.morning), false));
+        ((Switch)findViewById(R.id.afternoonSwitch)).setChecked(sharedPref.getBoolean(getString(R.string.afternoon), false));
+        ((Switch)findViewById(R.id.eveningSwitch)).setChecked(sharedPref.getBoolean(getString(R.string.evening), false));
+        ((Switch)findViewById(R.id.nightSwitch)).setChecked(sharedPref.getBoolean(getString(R.string.night), false));
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean(getString(R.string.morning), ((Switch)findViewById(R.id.morningSwitch)).isChecked());
+        editor.putBoolean(getString(R.string.afternoon), ((Switch)findViewById(R.id.afternoonSwitch)).isChecked());
+        editor.putBoolean(getString(R.string.evening), ((Switch)findViewById(R.id.eveningSwitch)).isChecked());
+        editor.putBoolean(getString(R.string.night), ((Switch)findViewById(R.id.nightSwitch)).isChecked());
+        editor.commit();
     }
 
     @Override
