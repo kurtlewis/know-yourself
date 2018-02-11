@@ -147,7 +147,7 @@ public class DayViewActivity extends Activity {
             if (feelingEntities == null) {
                 RelativeLayout rl = new RelativeLayout(inflater.getContext());
                 TextView tv = new TextView(inflater.getContext());
-                tv.setText("No activity for this day.");
+                tv.setText(R.string.no_activity);
                 tv.setTextSize(25);
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                         RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -181,7 +181,7 @@ public class DayViewActivity extends Activity {
                 masterLayout.addView(rl);
 
                 TextView timeTitle = new TextView(inflater.getContext());
-                timeTitle.setText("Timestamp");
+                timeTitle.setText(R.string.timestamp);
                 timeTitle.setTextSize(25);
                 masterLayout.addView(timeTitle);
 
@@ -198,19 +198,19 @@ public class DayViewActivity extends Activity {
                 masterLayout.addView(timeText);
 
                 TextView intensityTitle = new TextView(inflater.getContext());
-                intensityTitle.setText("Intensity");
+                intensityTitle.setText(R.string.intensity);
                 intensityTitle.setTextSize(25);
                 masterLayout.addView(intensityTitle);
 
                 TextView intensityText = new TextView(inflater.getContext());
-                intensityText.setText(new Integer(f.getIntensity()).toString());
+                intensityText.setText(Integer.toString(f.getIntensity()));
                 intensityText.setTextSize(20);
                 intensityText.setCompoundDrawablesWithIntrinsicBounds(R.drawable.cpv_preset_checked, 0, 0, 0);
                 intensityText.setCompoundDrawablePadding(8);
                 masterLayout.addView(intensityText);
 
                 TextView descriptionTitle = new TextView(inflater.getContext());
-                descriptionTitle.setText("Notes");
+                descriptionTitle.setText(R.string.notes);
                 descriptionTitle.setTextSize(25);
                 masterLayout.addView(descriptionTitle);
 
