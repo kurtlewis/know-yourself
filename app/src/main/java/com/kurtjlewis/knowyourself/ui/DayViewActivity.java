@@ -80,13 +80,13 @@ public class DayViewActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        mViewPager.setCurrentItem(sel_position - 1);
+        mViewPager.setCurrentItem(sel_position);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mViewPager.setCurrentItem(sel_position - 1);
+        mViewPager.setCurrentItem(sel_position);
     }
 
 
@@ -296,7 +296,7 @@ public class DayViewActivity extends AppCompatActivity {
                 return PlaceholderFragment.newInstance(sel_position);
             }*/
 
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position);
         }
 
         @Override
