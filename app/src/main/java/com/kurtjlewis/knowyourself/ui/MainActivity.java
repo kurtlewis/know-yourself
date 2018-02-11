@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         todayWithOffset.set(Calendar.MILLISECOND, 0);
         todayWithOffset.add(Calendar.DAY_OF_YEAR, -98);
 
+        feelingEntitiesByDate.clear();
+
         feelingEntities = DataRepository
                 .getInstance(mcontext)
                 .loadFeelingEntitiesAfterTimestamp(todayWithOffset);
