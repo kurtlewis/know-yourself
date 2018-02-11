@@ -21,7 +21,10 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
+import com.kurtjlewis.knowyourself.DataRepository;
 import com.kurtjlewis.knowyourself.R;
+import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
+import com.kurtjlewis.knowyourself.model.Emotion;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -32,31 +35,28 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_feeling);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        DataRepository repo = DataRepository.getInstance(this);
+        //FeelingEntity entity = new FeelingEntity(my data... my data... my data...);
+        //repo.insertFeelingEntity(entity);
 
         PieChart pieChart = (PieChart) findViewById(R.id.piechart);
         pieChart.setUsePercentValues(true);
 
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
-        yvalues.add(new Entry(12.5f, 0));
-        yvalues.add(new Entry(12.5f, 1));
-        yvalues.add(new Entry(12.5f, 2));
-        yvalues.add(new Entry(12.5f, 3));
-        yvalues.add(new Entry(12.5f, 4));
-        yvalues.add(new Entry(12.5f, 5));
-        yvalues.add(new Entry(12.5f, 6));
-        yvalues.add(new Entry(12.5f, 7));
+        
         PieDataSet dataSet = new PieDataSet(yvalues, "Emotion");
 
         ArrayList<String> xVals = new ArrayList<String>();
 
-        xVals.add("Angry");
-        xVals.add("Stressed");
-        xVals.add("Happy");
-        xVals.add("Anxious");
-        xVals.add("Sad");
-        xVals.add("Excited");
-        xVals.add("Depressed");
-        xVals.add("Neutral");
+        Emotion emotions[] = Emotion.values();
+        int[] colors = new int[emotions.length];
+        for(int i=0; i<emotions.length; i++){
+            yvalues.add(new Entry(100/emotions.length, i));
+            xVals.add(emotions[i].getLocalizedString(this));
+            colors[i] = emotions[i].getColorRepresentation();
+        }
 
         PieData data = new PieData(xVals, dataSet);
 
@@ -64,7 +64,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         pieChart.setData(data);
 
         pieChart.setDrawHoleEnabled(false);
-        dataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        dataSet.setColors(colors);
         data.setValueTextSize(13f);
 
 
@@ -80,7 +80,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         if (e == null)
             return;
         final Integer index = e.getXIndex();
-
+        FeelingEntity feeling = new FeelingEntity();
         final SeekBar seekBar = new SeekBar(this);
         seekBar.setMinimumWidth(500);
         seekBar.setMax(100);
@@ -108,13 +108,11 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
 
             public void onStopTrackingTouch(SeekBar arg0) {
                 // TODO Auto-generated method stub
-                System.out.println(".....111.......");
 
             }
 
             public void onStartTrackingTouch(SeekBar arg0) {
                 // TODO Auto-generated method stub
-                System.out.println(".....222.......");
             }
 
             public void onProgressChanged(SeekBar seekbar, int progress, boolean fromUser) {

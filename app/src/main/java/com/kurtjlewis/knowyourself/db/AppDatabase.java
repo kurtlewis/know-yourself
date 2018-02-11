@@ -38,7 +38,6 @@ public abstract class AppDatabase extends RoomDatabase {
             // TODO: Do not allow queries on the main thread except for during initial development
             sInstance = Room.databaseBuilder(context,
                     AppDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
-
         }
         return sInstance;
     }

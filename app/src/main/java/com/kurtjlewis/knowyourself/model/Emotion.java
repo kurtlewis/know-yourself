@@ -14,7 +14,7 @@ import android.support.annotation.ColorInt;
  */
 
 public enum Emotion {
-    HAPPY, ANGRY, SAD, ANXIOUS, STRESSED, EXCITED, DEPRESSED;
+    ANGRY, STRESSED, HAPPY, ANXIOUS, SAD,  EXCITED, DEPRESSED;
 
 
     /**
@@ -26,19 +26,19 @@ public enum Emotion {
     public @ColorInt int getColorRepresentation() {
         int color = Color.BLACK;
         switch (this) {
-            case HAPPY: color = Color.YELLOW;
+            case HAPPY: color = Color.rgb(255, 255, 77);
                 break;
-            case ANGRY: color = Color.RED;
+            case ANGRY: color = Color.rgb(216,31,42);
                 break;
-            case SAD: color = Color.BLUE;
+            case SAD: color = Color.rgb(51, 171, 249);
                 break;
-            case ANXIOUS: color = Color.GREEN;
+            case ANXIOUS: color = Color.rgb(144,245,0);
                 break;
             case STRESSED: color = Color.rgb(255, 165, 0);
                 break;
-            case EXCITED: color  = Color.rgb(155, 193, 255);
+            case EXCITED: color  = Color.rgb(174, 234, 255);
                 break;
-            case DEPRESSED: color = Color.rgb(172, 20, 183);
+            case DEPRESSED: color = Color.rgb(150, 0, 205);
                 break;
             default:
                 throw new RuntimeException("Unhandled enum value.");
