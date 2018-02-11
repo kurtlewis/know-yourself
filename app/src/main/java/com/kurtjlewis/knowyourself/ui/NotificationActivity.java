@@ -34,6 +34,9 @@ public class NotificationActivity extends AppCompatActivity implements CompoundB
         ((Switch)findViewById(R.id.nightSwitch)).setOnCheckedChangeListener(this);
 
         // Load switch states
+        // TODO: I've knowingly introduced a bug here, where the UI will show the
+        // incorrect state after a restart, because the app manager won't automatically
+        // reschedule alarms to trigger notifications after a restart
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         ((Switch)findViewById(R.id.morningSwitch)).setChecked(sharedPref.getBoolean(getString(R.string.morning), false));
         ((Switch)findViewById(R.id.afternoonSwitch)).setChecked(sharedPref.getBoolean(getString(R.string.afternoon), false));
