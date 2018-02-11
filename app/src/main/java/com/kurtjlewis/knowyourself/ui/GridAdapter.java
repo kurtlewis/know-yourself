@@ -55,7 +55,9 @@ public class GridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ImageView view = new ImageView(mContext);
-        List<FeelingEntity> feelingEntities = MainActivity.getFeelingEntitiesByDate().get(today);
+        Calendar todayWithOffset = (Calendar)today.clone();
+        todayWithOffset.add(Calendar.DAY_OF_YEAR, -position);
+        List<FeelingEntity> feelingEntities = MainActivity.getFeelingEntitiesByDate().get(todayWithOffset);
         Drawable drawable;
         if (feelingEntities == null) {
             drawable = new ColorDrawable(Color.rgb(200, 200, 200));
@@ -73,7 +75,7 @@ public class GridAdapter extends BaseAdapter {
                     //open clickEntity in individual view
                 }
             });
-            drawable = new ColorDrawable(Color.rgb((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255)));
+            drawable = new ColorDrawable(clickEntity.getEmotion().getColorRepresentation());
         }
 
         drawable = new ScaleDrawable(drawable, 0, 70, 70).getDrawable();

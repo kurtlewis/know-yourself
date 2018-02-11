@@ -13,12 +13,12 @@ import android.widget.GridView;
 
 import com.kurtjlewis.knowyourself.DataRepository;
 import com.kurtjlewis.knowyourself.R;
+import com.kurtjlewis.knowyourself.db.DataGenerator;
 import com.kurtjlewis.knowyourself.db.entity.FeelingEntity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -56,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*List<FeelingEntity> genFeelings = DataGenerator.generateFeelingEntityList(10);
+        for (FeelingEntity f : genFeelings) {
+            DataRepository.getInstance(this).insertFeelingEntity(f);
+        }*/
 
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
