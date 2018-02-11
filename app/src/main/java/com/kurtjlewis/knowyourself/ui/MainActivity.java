@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*List<FeelingEntity> genFeelings = DataGenerator.generateFeelingEntityList(10);
+        /*List<FeelingEntity> genFeelings = DataGenerator.generateFeelingEntityList(40);
         for (FeelingEntity f : genFeelings) {
             DataRepository.getInstance(this).insertFeelingEntity(f);
         }*/
