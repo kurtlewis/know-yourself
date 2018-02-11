@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 public class DayViewActivity extends Activity {
@@ -47,7 +48,13 @@ public class DayViewActivity extends Activity {
 
     private static Calendar today;
 
-    public static int sel_position;
+    private static int sel_position;
+    private static boolean just_set;
+
+    public static void SetPosition(int pos) {
+        sel_position = pos;
+        just_set = true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -262,12 +269,31 @@ public class DayViewActivity extends Activity {
             super(fm);
         }
 
+        public HashMap<Integer, Fragment> usedFragments = new HashMap<>();
+
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            sel_position += 1;
-            return PlaceholderFragment.newInstance(sel_position - 1);
+            if (!usedFragments.containsKey(position)) {
+                usedFragments.put(position, PlaceholderFragment.newInstance(position));
+            }
+
+            if (just_set) {
+                just_set = false;
+                if (usedFragments.containsKey(sel_position)) {
+                    return usedFragments.get(sel_position);
+                }
+                Fragment f = PlaceholderFragment.newInstance(sel_position);
+                usedFragments.put(sel_position, f);
+                return f;
+            }
+            if (usedFragments.containsKey(position + 1)) {
+                return usedFragments.get(position + 1);
+            }
+            Fragment f = PlaceholderFragment.newInstance(position + 1);
+            usedFragments.put(position + 1, f);
+            return f;
         }
 
         @Override
