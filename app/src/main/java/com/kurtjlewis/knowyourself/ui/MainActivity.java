@@ -148,6 +148,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.navigation_menu_notifications) {
             // Spawn navigation configuration activity
+            Context context = getApplicationContext();
+            Intent intent  = new Intent(this.getBaseContext(), NotificationActivity.class);
+            context.startActivity(intent);
         }
 
         if (id == R.id.action_settings) {
