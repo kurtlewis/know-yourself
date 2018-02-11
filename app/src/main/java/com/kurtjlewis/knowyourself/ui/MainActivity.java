@@ -25,9 +25,9 @@ import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<FeelingEntity> feelingEntities;
+    private static List<FeelingEntity> feelingEntities;
 
-    private Map<Calendar, List<FeelingEntity>> feelingEntitiesByDate = new TreeMap<>(new Comparator<Calendar>(){
+    private static Map<Calendar, List<FeelingEntity>> feelingEntitiesByDate = new TreeMap<>(new Comparator<Calendar>(){
         @Override
         public int compare(Calendar d1, Calendar d2) {
             d1.set(Calendar.HOUR_OF_DAY, 0);
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-    public Map<Calendar, List<FeelingEntity>> getFeelingEntitiesByDate() {
+    public static Map<Calendar, List<FeelingEntity>> getFeelingEntitiesByDate() {
         return feelingEntitiesByDate;
     }
 
