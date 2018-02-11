@@ -1,6 +1,7 @@
 package com.kurtjlewis.knowyourself.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -52,7 +53,7 @@ public class GridAdapter extends BaseAdapter {
         return 0;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ImageView view = new ImageView(mContext);
         Calendar todayWithOffset = (Calendar)today.clone();
@@ -68,14 +69,16 @@ public class GridAdapter extends BaseAdapter {
                     strongest = f;
                 }
             }
-            final FeelingEntity clickEntity = strongest;
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //open clickEntity in individual view
+                    DayViewActivity.sel_position = position;
+                    Context context = view.getContext();
+                    Intent intent  = new Intent(context, DayViewActivity.class);
+                    context.startActivity(intent);
                 }
             });
-            drawable = new ColorDrawable(clickEntity.getEmotion().getColorRepresentation());
+            drawable = new ColorDrawable(strongest.getEmotion().getColorRepresentation());
         }
 
         drawable = new ScaleDrawable(drawable, 0, 70, 70).getDrawable();

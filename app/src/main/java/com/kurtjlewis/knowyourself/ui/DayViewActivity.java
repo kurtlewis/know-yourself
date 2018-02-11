@@ -20,6 +20,9 @@ import android.widget.TextView;
 
 import com.kurtjlewis.knowyourself.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class DayViewActivity extends Activity {
 
     /**
@@ -37,8 +40,19 @@ public class DayViewActivity extends Activity {
      */
     private ViewPager mViewPager;
 
+    private Calendar today;
+
+    public static int sel_position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        today = Calendar.getInstance();
+        today.set(Calendar.HOUR_OF_DAY, 0);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        today.set(Calendar.MILLISECOND, 0);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
         // Create the adapter that will return a fragment for each of the three
@@ -48,7 +62,6 @@ public class DayViewActivity extends Activity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
 
     }
 
@@ -124,26 +137,21 @@ public class DayViewActivity extends Activity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            sel_position += 1;
+            return PlaceholderFragment.newInstance(sel_position);
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 98;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
+            Calendar todayWithOffset = (Calendar) today.clone();
+            todayWithOffset.add(Calendar.DAY_OF_YEAR, -position);
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+            return format1.format(todayWithOffset);
         }
     }
 }
