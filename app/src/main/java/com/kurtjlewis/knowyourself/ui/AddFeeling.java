@@ -45,13 +45,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         pieChart.setUsePercentValues(true);
 
         ArrayList<Entry> yvalues = new ArrayList<Entry>();
-        yvalues.add(new Entry(12.5f, 0));
-        yvalues.add(new Entry(12.5f, 1));
-        yvalues.add(new Entry(12.5f, 2));
-        yvalues.add(new Entry(12.5f, 3));
-        yvalues.add(new Entry(12.5f, 4));
-        yvalues.add(new Entry(12.5f, 5));
-        yvalues.add(new Entry(12.5f, 6));
+        
         PieDataSet dataSet = new PieDataSet(yvalues, "Emotion");
 
         ArrayList<String> xVals = new ArrayList<String>();
@@ -59,6 +53,7 @@ public class AddFeeling extends AppCompatActivity implements OnChartValueSelecte
         Emotion emotions[] = Emotion.values();
         int[] colors = new int[emotions.length];
         for(int i=0; i<emotions.length; i++){
+            yvalues.add(new Entry(100/emotions.length, i));
             xVals.add(emotions[i].getLocalizedString(this));
             colors[i] = emotions[i].getColorRepresentation();
         }
