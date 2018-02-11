@@ -2,7 +2,7 @@
     <string name="app_name">Know Yourself</string>
     <string name="action_settings">Settings</string>
     <string name="feelings">Your Feelings</string>
-
+    <string name="menu_notification">Notifications</string>
 
     <!-- Feeling names -->
     <string name="HAPPY">Happy</string>
